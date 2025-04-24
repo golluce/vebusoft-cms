@@ -13,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-use App\Http\Controllers\Panel\DashboardController;
-
 Route::prefix('panel')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('panel.dashboard');
 });
+
+
+require __DIR__.'/auth.php';
