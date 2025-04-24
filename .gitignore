@@ -1,15 +1,34 @@
+# Vendor & Dependencies
+/vendor
 /node_modules
 /public/hot
 /public/storage
-/storage/*.key
-/vendor
+/public/build
+
+# Environment Files
 .env
 .env.backup
+.env.production
+
+# Laravel Keys & Cache
+/storage/*.key
 .phpunit.result.cache
-docker-compose.override.yml
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
+.phpactor.json
+auth.json
+
+# Laravel & Lumen (genel)
+bootstrap/compiled.php
+app/storage/
+storage/pail
+
+# Editor & Debug Files
 /.idea
 /.vscode
+npm-debug.log
+yarn-error.log
+
+# Homestead & Docker
+Homestead.yaml
+Homestead.json
+/.vagrant
+docker-compose.override.yml
