@@ -74,34 +74,21 @@
     </script>
 @endif
 
-@if ($errors->any())
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function showToast(message, type = 'success') {
-                Toastify({
-                    text: message,
-                    duration: 3000,  // 3 saniye
-                    gravity: "bottom", // Alt tarafa
-                    position: "right", // Sağ tarafa
-                    backgroundColor: type === 'success'
-                        ? "linear-gradient(to right, #00b09b, #96c93d)"  // Yeşil
-                        : "linear-gradient(to right, #ff5f6d, #ffc371)",  // Kırmızı
-                    close: true,  // Kapatma butonu
-                }).showToast();
-            }
-            const errorMessages = @json($errors->all());
-            errorMessages.forEach(function(message) {
-                showToast(message, 'error');
-            });
-        });
-    </script>
-@endif
+
+
 
 @if($errors->any())
     <script>
+        @if($errors->all())
+        @foreach ($errors->all() as $error)
+        showToast("{{ $error }}", 'error');
+        @endforeach
+        @else
         document.addEventListener('DOMContentLoaded', function() {
             showToast("{{ session('error') }}", 'error');
         });
+        @endif
+
     </script>
 @endif
 <script src="{{ asset('monopanel/js/custom.js') }}"></script>
