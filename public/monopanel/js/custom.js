@@ -223,7 +223,8 @@ document.addEventListener('DOMContentLoaded', function () {
             clearError(input);
         });
     }
-
+    });
+document.addEventListener('DOMContentLoaded', function () {
     const deleteButtons = document.querySelectorAll('.btn-delete');
 
     deleteButtons.forEach(function (button) {
@@ -232,12 +233,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
             Swal.fire({
                 title: 'Emin misiniz?',
-                text: "Bu kaydı silmek istediğinize emin misiniz?",
+                text: "Bu işlemi geri alamazsınız!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Evet, Sil!',
+                confirmButtonText: 'Evet, sil!',
                 cancelButtonText: 'Vazgeç'
             }).then((result) => {
                 if (result.isConfirmed) {
@@ -246,7 +247,4 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     });
-
-
-
 });

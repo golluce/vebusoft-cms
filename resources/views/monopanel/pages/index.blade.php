@@ -88,13 +88,12 @@
                                                 </a>
                                             </div>
                                             <div class="remove">
-                                                <form action="{{ route('pages.destroy', $page) }}" method="POST" style="display:inline-block;" class="delete-form">
+                                                <form action="{{ route('pages.destroy', $page) }}" method="POST" class="delete-form">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="button" class="bx bx-trash trash_icon btn-delete"></button>
                                                 </form>
                                             </div>
-
                                         </div>
                                     </td>
                                 </tr>
