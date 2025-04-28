@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Http\Controllers\Controller;
+<<<<<<< HEAD
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
+=======
+use Illuminate\Http\Request;
+use App\Models\Page;
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
 
 class PageController extends Controller
 {
@@ -17,8 +22,13 @@ class PageController extends Controller
      */
     public function index()
     {
+<<<<<<< HEAD
         $pages = Page::latest()->get();
         return view('monopanel.pages.index', compact('pages'));
+=======
+        $pages = Page::orderBy('created_at', 'desc')->get();
+        return view('panel.pages.index', compact('pages'));
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
     }
 
     /**
@@ -28,6 +38,7 @@ class PageController extends Controller
      */
     public function create()
     {
+<<<<<<< HEAD
         return view('monopanel.pages.create');
     }
 
@@ -36,10 +47,20 @@ class PageController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
+=======
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+<<<<<<< HEAD
         $validationRules = [
             'title' => 'required|min:3',
             'slug' => 'nullable|unique:pages,slug',
@@ -82,6 +103,18 @@ class PageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Page $page)
+=======
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
     {
         //
     }
@@ -89,17 +122,27 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+<<<<<<< HEAD
      * @param \App\Models\Page $page
      * @return \Illuminate\Http\Response
      */
     public function edit(Page $page)
     {
         return view('monopanel.pages.edit', compact('page'));
+=======
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
     }
 
     /**
      * Update the specified resource in storage.
      *
+<<<<<<< HEAD
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Page $page
      * @return \Illuminate\Http\Response
@@ -156,4 +199,25 @@ class PageController extends Controller
         return redirect()->route('pages.index')->with('success', 'Sayfa silindi.');
     }
 
+=======
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
 }

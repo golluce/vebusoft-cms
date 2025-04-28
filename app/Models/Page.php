@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Page extends Model
 {
     use HasFactory;
+<<<<<<< HEAD
 
     protected $fillable = [
         'title',
@@ -28,4 +29,6 @@ class Page extends Model
         };
     }
 
+=======
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
 }

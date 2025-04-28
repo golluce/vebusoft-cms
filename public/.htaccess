@@ -19,5 +19,8 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137

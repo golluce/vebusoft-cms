@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /node_modules
 /public/hot
 /public/storage
@@ -13,3 +14,39 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+=======
+# Vendor & Dependencies
+/vendor
+/node_modules
+/public/hot
+/public/storage
+/public/build
+
+# Environment Files
+.env
+.env.backup
+.env.production
+
+# Laravel Keys & Cache
+/storage/*.key
+.phpunit.result.cache
+.phpactor.json
+auth.json
+
+# Laravel & Lumen (genel)
+bootstrap/compiled.php
+app/storage/
+storage/pail
+
+# Editor & Debug Files
+/.idea
+/.vscode
+npm-debug.log
+yarn-error.log
+
+# Homestead & Docker
+Homestead.yaml
+Homestead.json
+/.vagrant
+docker-compose.override.yml
+>>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
