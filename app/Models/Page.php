@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model
 {
     use HasFactory;
-<<<<<<< HEAD
+    use SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -29,6 +30,5 @@ class Page extends Model
         };
     }
 
-=======
->>>>>>> a64a8eb913ba664bd82454c14ce0a4ea193cf137
+
 }

@@ -248,3 +248,103 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.querySelector('.search');
+    const table = document.getElementById('globalTable');
+    const rows = table.querySelectorAll('tbody tr');
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            rows.forEach(function (row) {
+                const rowText = row.innerText.toLowerCase();
+                if (rowText.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('checkAll');
+    const checkboxes = document.querySelectorAll('.selectBox');
+    const deleteSelected = document.getElementById('bulkDeleteButton');
+    const bulkDeleteForm = deleteSelected.closest('form'); // 📢 Burada mevcut formu alıyoruz
+
+    function updateBulkDeleteButton() {
+        const anyChecked = Array.from(checkboxes).some(chk => chk.checked);
+        if (deleteSelected) {
+            deleteSelected.style.display = anyChecked ? 'inline-block' : 'none';
+        }
+    }
+
+    if (selectAll) {
+        selectAll.addEventListener('change', function () {
+            checkboxes.forEach(function (checkbox) {
+                checkbox.checked = selectAll.checked;
+            });
+            updateBulkDeleteButton();
+        });
+    }
+
+    checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener('change', function () {
+            if (!this.checked) {
+                selectAll.checked = false;
+            } else if (Array.from(checkboxes).every(chk => chk.checked)) {
+                selectAll.checked = true;
+            }
+            updateBulkDeleteButton();
+        });
+    });
+
+    if (deleteSelected && bulkDeleteForm) {
+        deleteSelected.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const selected = Array.from(checkboxes)
+                .filter(checkbox => checkbox.checked)
+                .map(checkbox => checkbox.value);
+
+            if (selected.length === 0) {
+                Swal.fire('Uyarı', 'Lütfen silmek için en az bir kayıt seçin.', 'warning');
+                return;
+            }
+
+            Swal.fire({
+                title: `${selected.length} adet sayfa silinecek!`,
+                text: "Bu işlemi geri alamazsınız, emin misiniz?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Evet, Sil!',
+                cancelButtonText: 'Vazgeç'
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    // Daha önce eklenmiş inputlar varsa temizle
+                    bulkDeleteForm.querySelectorAll('input[name="ids[]"]').forEach(el => el.remove());
+
+                    // Seçilenleri input olarak ekle
+                    selected.forEach(function (id) {
+                        const input = document.createElement('input');
+                        input.type = 'hidden';
+                        input.name = 'ids[]';
+                        input.value = id;
+                        bulkDeleteForm.appendChild(input);
+                    });
+
+                    bulkDeleteForm.submit();
+                }
+            });
+        });
+    }
+
+
+});

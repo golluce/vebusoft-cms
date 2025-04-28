@@ -46,6 +46,7 @@
 <script src="{{ asset('monopanel/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('monopanel/js/app.js') }}"></script>
 <script src="{{ asset('monopanel/libs/choices/choices.js') }}"></script>
+<script src="{{ asset('monopanel/js/pages/plugins/lord-icon-2.1.0.js') }}"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -73,11 +74,33 @@
     </script>
 @endif
 
+@if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function showToast(message, type = 'success') {
+                Toastify({
+                    text: message,
+                    duration: 3000,  // 3 saniye
+                    gravity: "bottom", // Alt tarafa
+                    position: "right", // Sağ tarafa
+                    backgroundColor: type === 'success'
+                        ? "linear-gradient(to right, #00b09b, #96c93d)"  // Yeşil
+                        : "linear-gradient(to right, #ff5f6d, #ffc371)",  // Kırmızı
+                    close: true,  // Kapatma butonu
+                }).showToast();
+            }
+            const errorMessages = @json($errors->all());
+            errorMessages.forEach(function(message) {
+                showToast(message, 'error');
+            });
+        });
+    </script>
+@endif
 
 @if($errors->any())
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            showToast("Form gönderiminde hatalar var!", 'error');
+            showToast("{{ session('error') }}", 'error');
         });
     </script>
 @endif

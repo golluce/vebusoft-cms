@@ -15,11 +15,17 @@
                     <div class="listjs-table" id="customerList">
                         <div class="row g-4 mb-3">
                             <div class="col-sm-auto">
-                                <div>
-                                    <a href="{{ route('pages.create') }}" class="btn btn-success add-btn"><i class="ri-add-line align-bottom me-1"></i>Oluştur</a>
-{{--                                    <button class="btn btn-soft-danger deleted" data-link="<?=ADMIN_URL?>/<?=$model?>/delete/"--}}
-{{--                                            data-title="<?=remove_title?>" data-question="<?=remove_desc?>" data-no="<?=no?>"  data-yes="<?=yes?>"--}}
-{{--                                            onclick="deleteMultiple(this)"><i class="ri-delete-bin-2-line"></i></button>--}}
+                                <div class="d-flex align-items-center gap-2">
+                                    <a href="{{ route('pages.create') }}" class="btn btn-success add-btn">
+                                        <i class="ri-add-line align-bottom me-1"></i>Oluştur
+                                    </a>
+
+                                    <form method="POST" action="{{ route('pages.bulk-delete') }}">
+                                        @csrf
+                                        <button type="submit" id="bulkDeleteButton" class="btn btn-danger" style="display:none;">
+                                            <i class="ri-delete-bin-2-line"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                             <div class="col-sm">
@@ -34,12 +40,12 @@
 
                         <div class="table-responsive table-card mt-3 mb-1">
 
-                            <table class="table align-middle table-nowrap" id="customerTable">
+                            <table class="table align-middle table-nowrap" id="globalTable">
                                 <thead class="table-light">
                                 <tr>
                                     <th scope="col" style="width: 50px;">
                                         <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="checkAll" value="option">
+                                            <input class="form-check-input selectBox" type="checkbox" id="checkAll" value="option">
                                         </div>
                                     </th>
                                     <th class="sort" data-sort="title">Başlık</th>
@@ -54,11 +60,8 @@
                                 <tbody class="list form-check-all">
                                 @foreach($pages as $page)
                                 <tr>
-                                    <th scope="row">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="chk_child" value="{{ $page->id }}">
-                                        </div>
-                                    </th>
+                                    <td><input type="checkbox" name="ids[]" value="{{ $page->id }}" class="selectBox form-check-input"></td>
+
                                     <td class="title"><a href="{{ route('pages.edit', $page) }}" class="fw-medium link-primary">{{ $page->title }}</a></td>
                                     @php
                                         $badge = $page->getStatusBadge();
@@ -99,13 +102,51 @@
                                 </tr>
                                 @endforeach
 
-                                @if($pages->isEmpty())
-                                    <tr><td colspan="4" class="text-center">Henüz sayfa eklenmemiş.</td></tr>
-                                @endif
                                 </tbody>
+
                             </table>
 
-                    </div>
+                            @if($pages->isEmpty())
+                                <div style="display: block">
+                                    <div class="text-center">
+                                        <lord-icon src="https://cdn.lordicon.com/msoeawqm.json" trigger="loop" colors="primary:#121331,secondary:#08a88a" style="width:75px;height:75px"></lord-icon>
+                                        <h5 class="mt-2">Sonuç bulunamadı!</h5>
+                                        <p class="text-muted mb-0">Gidiğiniz kayıtlar burada görünecek</p>
+                                    </div>
+                                </div>
+                            @endif
+                            @if ($pages->hasPages())
+                                <div class="d-flex justify-content-end mt-3">
+                                    <div class="pagination-wrap hstack gap-2">
+
+                                        {{-- Geri Butonu --}}
+                                        @if ($pages->onFirstPage())
+                                            <a class="page-item pagination-prev disabled" href="javascript:void(0);">Geri</a>
+                                        @else
+                                            <a class="page-item pagination-prev" href="{{ $pages->previousPageUrl() }}">Geri</a>
+                                        @endif
+
+                                        {{-- Sayfa Numaraları --}}
+                                        <ul class="pagination listjs-pagination mb-0">
+                                            @foreach ($pages->getUrlRange(1, $pages->lastPage()) as $page => $url)
+                                                <li class="{{ $pages->currentPage() == $page ? 'active' : '' }}">
+                                                    <a class="page" href="{{ $url }}" data-i="{{ $page }}" data-page="{{ $pages->perPage() }}">{{ $page }}</a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+
+                                        {{-- İleri Butonu --}}
+                                        @if ($pages->hasMorePages())
+                                            <a class="page-item pagination-next" href="{{ $pages->nextPageUrl() }}">İleri</a>
+                                        @else
+                                            <a class="page-item pagination-next disabled" href="javascript:void(0);">İleri</a>
+                                        @endif
+
+                                    </div>
+                                </div>
+                            @endif
+
+                        </div>
                 </div><!-- end card -->
             </div>
             <!-- end col -->
