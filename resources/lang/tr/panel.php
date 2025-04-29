@@ -1,0 +1,27 @@
+<?php
+
+return [
+    'dashboard' => 'Kontrol Paneli',
+    'pages' => 'Sayfalar',
+    'create_page' => 'Yeni Sayfa Oluştur',
+    'edit_page' => 'Sayfa Düzenle',
+    'save' => 'Kaydet',
+    'save_and_edit' => 'Kaydet ve Düzenlemeye Devam Et',
+    'title' => 'Başlık',
+    'slug' => 'Kalıcı Bağlantı',
+    'meta_title' => 'SEO Başlığı',
+    'meta_description' => 'SEO Açıklaması',
+    'seo_keywords' => 'SEO Anahtar Kelimeler',
+    'status' => 'Durum',
+    'published' => 'Yayında',
+    'draft' => 'Taslak',
+    'waiting' => 'Bekliyor',
+    'actions' => 'İşlemler',
+    'edit' => 'Düzenle',
+    'delete' => 'Sil',
+    'confirm_delete' => 'Silmek istediğinize emin misiniz?',
+    'created_at' => 'Oluşturulma Tarihi',
+    'updated_at' => 'Güncellenme Tarihi',
+    'search' => 'Arama...',
+    'clear' => 'Temizle',
+];
